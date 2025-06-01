@@ -1,7 +1,8 @@
 
 using System.Collections.Generic;
-
+using Helpers;
 using UnityEngine;
+
 
 [ExecuteInEditMode]
 public class RoomGenerator : MonoBehaviour
@@ -31,10 +32,11 @@ public class RoomGenerator : MonoBehaviour
 
     private void Start()
     {
+        _occupiedPositions = new HashSet<Vector2Int>();
+
         /*Unity runs Start() and Update() in edit mode too,
          this helps to avoid duplicating objects or causing performance issues.*/
-        if ( ! Application.isPlaying)
-            return;
+        if (Application.isPlaying.Not()) return;
 
         if (layout)
         {
@@ -42,19 +44,19 @@ public class RoomGenerator : MonoBehaviour
         }
         else
         {
-            Debug.Log("RoomLayout not assigned to RoomGenerator. Using coded creation Room and its items (if random options are selected.");
+            Debug.Log("RoomLayout not assigned to RoomGenerator. Using coded creation of the Room and its items (if random options are selected.");
 
             GenerateWalls();
 
             if (generateRandomObstacles) GenerateObstacles();
             if (generateRandomItems) GenerateItems();
         }
+
+        CenterCamera();
     }
 
     private void GenerateFromLayout()
     {
-        _occupiedPositions = new HashSet<Vector2Int>();
-
         foreach (RoomObject obj in layout.objects)
         {
             var position = new Vector2Int(obj.position.x, obj.position.y);
@@ -128,4 +130,27 @@ public class RoomGenerator : MonoBehaviour
         
         return (Vector2)pos;
     }
+    private void CenterCamera()
+    {
+        var cam = Camera.main;
+
+        if (cam)
+        {
+            // Center the camera based on room dimensions
+            cam.transform.position = new Vector3(roomWidth / 2f, roomHeight / 2f, -10f);
+
+            // Calculate the required orthographic size
+            var verticalSize   = roomHeight / 2f;
+            var horizontalSize = (roomWidth / 2f) / cam.aspect;
+
+            cam.orthographic     = true;
+            cam.orthographicSize = Mathf.Max(verticalSize, horizontalSize);
+
+            return;
+        }
+
+        
+        Debug.LogWarning("Main Camera not found.");
+    }
+
 }

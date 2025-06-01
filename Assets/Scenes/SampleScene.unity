@@ -130,6 +130,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2158325216155271566, guid: ab37a448767f4534ea94871fa5a86743, type: 3}
+      propertyPath: itemPrefab
+      value: 
+      objectReference: {fileID: 64715104577689187, guid: b9296a9b0cab9474496a90f8f9e428a7, type: 3}
+    - target: {fileID: -2158325216155271566, guid: ab37a448767f4534ea94871fa5a86743, type: 3}
+      propertyPath: wallPrefab
+      value: 
+      objectReference: {fileID: 4538320138685246932, guid: 2ed16c0534939604ea6965c60237f74f, type: 3}
+    - target: {fileID: -2158325216155271566, guid: ab37a448767f4534ea94871fa5a86743, type: 3}
+      propertyPath: obstaclePrefab
+      value: 
+      objectReference: {fileID: 4348408101041353813, guid: f3db65db0e6163042aa1019fb7918dd5, type: 3}
     - target: {fileID: 7387237868169030124, guid: ab37a448767f4534ea94871fa5a86743, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
